@@ -4,7 +4,7 @@
 ## 8. Implementation of passing parameters.
 # Ex.No:16
   Implement a C program to read a date in the format DD/MM/YYYY and determine whether the entered date is valid. The program should check the correctness of the day, month, and year, including leap year calculations for February.
-# Date : 
+# Date : 06.06.26 
 # Aim:
  To implement a C program that validates a user-entered date using a function without parameters and without return value, ensuring the correctness of day, month, year, and leap year conditions.
 # Algorithm:
@@ -41,7 +41,72 @@
 ### Step 14: 
   Stop
 # Program:
+```
+#include <stdio.h>
+void validateDate()
+{
+    int dd, mm, yyyy;
+    printf("Enter date (DD/MM/YYYY): ");
+    scanf("%d/%d/%d", &dd, &mm, &yyyy);
+
+     if (yyyy < 1900 || yyyy > 9999)
+    {
+        printf("Year is not valid.");
+        return;
+    }
+
+    if (mm < 1 || mm > 12)
+    {
+        printf("Month is not valid.");
+        return;
+    }
+
+    if (dd < 1 || dd > 31)
+    {
+        printf("Day is invalid.");
+        return;
+    }
+
+    if (mm == 2)
+    {
+        if ((yyyy % 4 == 0 && yyyy % 100 != 0) || (yyyy % 400 == 0))
+        {
+            if (dd > 29)
+            {
+                printf("Day is not valid.");
+                return;
+            }
+        }
+        else
+        {
+            if (dd > 28)
+            {
+                printf("Day is not valid.");
+                return;
+            }
+        }
+    }
+
+    if (mm == 4 || mm == 6 || mm == 9 || mm == 11)
+    {
+        if (dd > 30)
+        {
+            printf("Day is not valid.");
+            return;
+        }
+    }
+    printf("Date is valid.");
+}
+
+int main()
+{
+    validateDate();
+    return 0;
+}
+```
 # Output:
+<img width="561" height="243" alt="image" src="https://github.com/user-attachments/assets/a1fee78f-3ece-42ec-b353-81d9642eba35" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -50,7 +115,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-4- Module 4 - FoC
 # Ex.No:17
   Develop a C program to read two numbers from the user and determine the maximum and minimum values. Use user-defined functions with arguments and return values—one function to find the maximum (max()) and another to find the minimum (min()).
-# Date : 
+# Date : 29/05/26 
 # Aim:
  To develop a C program that uses functions with parameters and return values to compute and display the maximum and minimum of two user-entered numbers.
 # Algorithm:
@@ -89,7 +154,27 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 13: 
   Stop
 # Program:
+```
+#include <stdio.h>
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int main() {
+    int num1, num2;
+    printf("Enter two numbers: ");
+    scanf("%d %d", &num1, &num2);
+    printf("Maximum = %d\n", max(num1, num2));
+    printf("Minimum = %d", min(num1, num2));
+    return 0;
+}
+```
 # Output:
+<img width="581" height="272" alt="image" src="https://github.com/user-attachments/assets/c675f5d3-93eb-4518-9c93-0db17d065b96" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -98,7 +183,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-4- Module 4 - FoC
 # Ex.No:18
   Develop a C program to convert temperatures between Celsius and Fahrenheit: Convert Celsius to Fahrenheit using a function that returns the converted value. Convert Fahrenheit to Celsius using another function that returns the converted value. Display the results in the main() function.
-# Date : 
+# Date : 24/05/26
 # Aim:
  To develop a C program that converts temperatures between Celsius and Fahrenheit using functions with return values.
 # Algorithm:
@@ -137,7 +222,31 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 11: 
  Stop
 # Program:
+```
+#include <stdio.h>
+float celtof() {
+    float c;
+    printf("Enter temperature in Celsius: ");
+    scanf("%f", &c);
+    return (c * 9 / 5) + 32;
+}
+
+float ftocel() {
+    float f;
+    printf("Enter temperature in Fahrenheit: ");
+    scanf("%f", &f);
+    return (f - 32) * 5 / 9;
+}
+
+int main() {
+    printf("Fahrenheit = %.2f\n", celtof());
+    printf("Celsius = %.2f", ftocel());
+    return 0;
+}
+```
 # Output:
+<img width="546" height="265" alt="image" src="https://github.com/user-attachments/assets/e7457ab6-29c9-4c04-ba72-1f17e4a0cc48" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -146,7 +255,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-4- Module 4 - FoC
 # Ex.No:19
   Build a C program to print the elements of a given 4×4 matrix in spiral order starting from the top-left element and moving clockwise,using a user-defined parameterized function without return spiralPrint().
-# Date : 
+# Date : 29/05/26
 # Aim:
  To build a C program to display the elements of a 2D array in spiral form, traversing the outer elements first and then moving inward in a clockwise direction, using a user-defined parameterized function without return spiralPrint().
 # Algorithm:
@@ -185,7 +294,52 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 7: 
   Stop
 # Program:
+```
+#include <stdio.h>
+#define R 4
+#define C 4
+
+void spiralPrint(int m, int n, int a[R][C]) {
+    int i, k = 0, l = 0;
+
+    while (k < m && l < n) {
+        for (i = l; i < n; i++)
+            printf("%d ", a[k][i]);
+        k++;
+
+        for (i = k; i < m; i++)
+            printf("%d ", a[i][n - 1]);
+        n--;
+
+        if (k < m) {
+            for (i = n - 1; i >= l; i--)
+                printf("%d ", a[m - 1][i]);
+            m--;
+        }
+
+        if (l < n) {
+            for (i = m - 1; i >= k; i--)
+                printf("%d ", a[i][l]);
+            l++;
+        }
+    }
+}
+
+int main() {
+    int a[R][C] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12},
+        {13, 14, 15, 16}
+    };
+
+    spiralPrint(R, C, a);
+    return 0;
+}
+```
 # Output:
+<img width="677" height="202" alt="image" src="https://github.com/user-attachments/assets/ba21e23d-7660-4fac-95ab-9e7a3d7d770b" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -194,7 +348,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-4- Module 4 - FoC
 # Ex.No:20
   Build a C program to convert a string such that the first and last characters, as well as the characters before and after each space, are converted to uppercase. Implement this using a user-defined parameterized function without return.
-# Date : 
+# Date : 29/05/26
 # Aim:
 To build a C program to convert a string as described above, using a user-defined parameterized function without return convertFirstCLastC(char str[]).
 # Algorithm:
@@ -220,7 +374,36 @@ To build a C program to convert a string as described above, using a user-define
 ### Step 6: 
  Stop
 # Program:
+```
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+void convertFirstCLastC(char str[]) {
+    int len = strlen(str);
+
+    str[0] = toupper(str[0]);
+    str[len - 1] = toupper(str[len - 1]);
+
+    for (int i = 1; i < len - 1; i++) {
+        if (str[i] == ' ') {
+            str[i - 1] = toupper(str[i - 1]);
+            str[i + 1] = toupper(str[i + 1]);
+        }
+    }
+}
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    convertFirstCLastC(str);
+    printf("Modified string: %s", str);
+    return 0;
+}
+```
 # Output:
+<img width="694" height="277" alt="image" src="https://github.com/user-attachments/assets/03917c5f-259b-4372-9101-059e2e629b9c" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
